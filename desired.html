@@ -1,0 +1,131 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-particle-system-component@1.0.x/dist/aframe-particle-system-component.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/patroljs@0.1.0/patrol.min.js"></script>
+    <script src="https://pavle-goloskokovic.github.io/web-audio-touch-unlock-example/dist/web-audio-touch-unlock-example.js"></script>
+    <script src="js/howler.core.js"></script>
+    <link rel="icon" href="">
+    <title>AFTER</title>
+</head>
+
+<body>
+
+    <script>
+        AFRAME.registerComponent('auto-enter-vr', {
+            init: function() {
+                this.el.sceneEl.enterVR();
+            }
+        });
+
+    </script>
+
+    <a-scene auto-enter-vr>
+
+
+        <a-assets>
+            <a-asset-item id="afterClassroom" src="models/AFTERclassroom.dae"></a-asset-item>
+            <a-asset-item id="simInfo" src="models/infoCircle.dae"></a-asset-item>
+            <a-asset-item id="refInfo" src="models/infoCircle.dae"></a-asset-item>
+            <a-asset-item id="playInfo" src="models/infoCircle.dae"></a-asset-item>
+            <a-asset-item id="colInfo" src="models/infoCircle.dae"></a-asset-item>
+        </a-assets>
+
+        <a-camera>
+
+            <a-cursor cursor="fuse: true" raycaster="objects: .clickable" position="0 0 -1" geometry="primitive:ring; radiusInner:0.05; radiusOuter:0.06" material="color:#ffffff; shader: flat">
+                <a-animation begin="click" easing="ease-in" attribute="scale" fill="forwards" from="0.2 0.2 0.2" to="1 1 1" dur="150"></a-animation>
+                <a-animation begin="fusing" easing="ease-in" attribute="scale" fill="backwards" from="1 1 1" to="0.2 0.2 0.2" dur="1500"></a-animation>
+            </a-cursor>
+        </a-camera>
+
+        <a-entity link="href: index.html; title: Before; borderColor: #ffffff; backgroundColor: blue" position="5 -1.5 -53.5" scale="0.75 0.75 0.75" rotation="0 0 0" class="clickable"></a-entity>
+
+        <a-collada-model id="simInfoMod" src="#simInfo" position="-5 0.88 -33.7" rotation="0 0 0" scale="2 2 2" class="clickable">
+            <a-plane position="3.6 0.43 0" height="1.5" width="5.5" color="#000" opacity="0.2" visible="false" id="simText">
+                <a-text value="Encouraging collaboration and ideation in an open, inviting environment. The use of stools instead of chairs and desk creates a sense of community and makes people open to critique and sharing ideas." color="white" position="-2.47 0 0"></a-text>
+            </a-plane>
+        </a-collada-model>
+
+
+        <a-collada-model id="refInfoMod" src="#refInfo" position="11 0 -32" rotation="0 -40 0" scale="2 2 2" class="clickable">
+            <a-plane position="3.5 -0.2 0" height="1.5" width="5.5" color="#000" opacity="0.2" visible="false" id="refText">
+                <a-text value="This space encourages exploration. Storage will contain a variety of supplies so that students can practice hands-on learning in an open space." color="white" position="-2.47 0 0"></a-text>
+            </a-plane>
+        </a-collada-model>
+
+        <a-collada-model id="playInfoMod" src="#playInfo" position="-5 0.88 -3" rotation="0 130 0" scale="2 2 2" class="clickable">
+            <a-plane position="3.5 -0.2 0" height="1.5" width="5.5" color="#000" opacity="0.2" visible="false" id="playText">
+                <a-text value="This space encourages exploration. Storage will contain a variety of supplies so that students can practice hands-on learning in an open space." color="white" position="-2.47 0 0"></a-text>
+            </a-plane>
+        </a-collada-model>
+
+        <a-collada-model id="colInfoMod" src="#colInfo" position="-22 0.88 -27.61" rotation="0 70 0" scale="2 2 2" class="clickable">
+            <a-plane position="3.5 0 0" rotation="0 -50 0" height="1.5" width="5.5" color="#000" opacity="0.2" visible="false" id="colText">
+                <a-text value="Warm colours are used to create an inviting and cozy effect. Accents of orange, green and blue increase productivity. The use of natural light and plants also reduce stress levels." color="white" position="-2.47 0 0"></a-text>
+            </a-plane>
+        </a-collada-model>
+
+        <a-collada-model src="#afterClassroom" position="0 -6 -27" rotation="0 -50 0" scale="0.5 0.5 0.5"></a-collada-model>
+
+        <a-light type="point" color="white" position="0 20 0" intensity="0.5"></a-light>
+        <a-light type="point" color="white" position="0 30 -13" intensity="0.25"></a-light>
+        <a-light type="directional" color="white" position="-10 12 43" intensity="0.1"></a-light>
+        <a-light type="ambient" color="#222"></a-light>
+
+        <a-sky color="#ebe7d7"></a-sky>
+
+    </a-scene>
+
+    <script>
+        var infoSim = document.querySelector("#simInfoMod");
+
+        var textSim = document.querySelector("#simText");
+
+
+        infoSim.addEventListener("click", function() {
+
+            textSim.setAttribute('visible', true);
+
+        });
+
+        var infoRef = document.querySelector("#refInfoMod");
+
+        var textRef = document.querySelector("#refText");
+
+
+        infoRef.addEventListener("click", function() {
+
+            textRef.setAttribute('visible', true);
+
+        });
+
+
+        var infoPlay = document.querySelector("#playInfoMod");
+
+        var textPlay = document.querySelector("#playText");
+
+
+        infoPlay.addEventListener("click", function() {
+
+            textPlay.setAttribute('visible', true);
+
+        });
+
+        var infoCol = document.querySelector("#colInfoMod");
+
+        var textCol = document.querySelector("#colText");
+
+
+        infoCol.addEventListener("click", function() {
+
+            textCol.setAttribute('visible', true);
+
+        });
+    </script>
+</body>
+
+</html>
